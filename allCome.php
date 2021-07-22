@@ -8,7 +8,7 @@
   <title>Login</title>
   <style>
     .frm{
-      margin-top: 50%;
+      margin-top: 20%;
       text-align: center;
     }
   </style>
@@ -22,7 +22,6 @@
             require_once 'core/connection.php';
             $todos = $pdo->prepare("SELECT * FROM invictes");
             $todos->execute();
-
             echo '
                 <table  class="table table-dark" style="border:2px; border-color: white;">
                 <tr>
@@ -34,15 +33,16 @@
             while($dados = $todos->fetch(PDO::FETCH_ASSOC)){
                 echo '
                 <tr>
-                  <td>'.$dados['id'].'<td>
-                  <td>'.$dados['name'].'
-                  <td>'.$dados['created_at'].'</td></tr>
+                  <td>'.$dados['id'].'º</td>
+                  <td>'.$dados['name'].'</td>
+                  <td>'.$dados['created_at'].'</td>
                 ';
             }
             echo'  
             </tr>
             </table>';
           ?>
+        <a href="logout.php">Sair</a>
         </div>
       </div>
     </div>

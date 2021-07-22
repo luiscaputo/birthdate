@@ -11,7 +11,6 @@
     }else{
       if($email == $email1){
         if($pass == $pass1){
-          session_abort();
           session_start();
           header('location: allCome.php');
         }else
