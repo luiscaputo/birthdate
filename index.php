@@ -1,3 +1,20 @@
+<?php 
+  require_once 'core/connection.php';
+  if(isset($_POST['confirm'])){
+    $name = filter_input(INPUT_POST, 'name');
+    $see = $pdo->prepare("SELECT * FROM invictes where name = '$name'");
+    $see->execute();
+    if($see->rowCount() > 0){
+      echo "<script>alert('Já vai alguém com teu nome! Liga no meu número.')</script>";
+    }else{
+      $save = $pdo->prepare("INSERT INTO invictes(name, statusInvicte) values ('$name', 'Confirmado')");
+      $save->execute();
+      if($save->rowCount() > 0){
+        echo "<script>alert('Valeu por confirmar. Estarei aguardando por si no sábado!.')</script>";
+      }
+    }
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,8 +28,8 @@
       background-image: url(src/1.svg) no-repeat;
     }
     #niverDay{
-      font-size: 45pt;
-      font-family: Arial, Geneva, Tahoma, sans-serif;
+      font-size: 30pt;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, Geneva, Tahoma, sans-serif;
       padding-top: 10px;
       padding-bottom: 10px;
     }
@@ -44,50 +61,31 @@
       margin-top: 60px;
     }
     #ft1{
-
+      border-radius: 10px;
     }
   </style>
 </head>
-<body class="bg-dark" style="color:#63B8FF; font-family: roboto, sans-serif;">
-  <!-- <div class="container text-center p-3">
-    <div class="row">
-      <div class="col">
-  
-<hr style="color:#63B8FF">
-   <div class="container" id="corpo">
-   <div class="row">
-      <div class="col">
-      </div>
-   </div>
-   
-      </div>
-  </div><br><br>
-  </div> -->
+<body class="" style="background-color:black; color:#63B8FF">
 
   <div class="container p-3" id="geral">
     <div class="row">
       <div class="col p-4" id="p1">
-      <h2 class="text-center" id= "niverDay">Noemy Medeiros <br>      <small>- 19 anos -</small></h2>
+      <h3 class="text-center" id="niverDay">Noemy Medeiros <br>      <small>- 19 anos -</small></h3>
+      <h3 class="text-center">Estás Convidado(a)</h3><br>
+      <hr style="background-color: white;"><br>
 
         <!-- <img src="src/2.jpg" width="300" height="300" class="rounded-circle border border-primary border-4 dashed"> -->
       <h5>Venha celebrar comigo o meu aniversário! <br> <br>
-       CONTO COM SUA PRESENÇA!<br><br>
-        <h5>Data: <br>
-          <br>
+       CONTO COM SUA PRESENÇA! Será no Kilamba prédio U47 apt. 47, Já neste sábado pelas 16h.<br><br>
+        <!-- <p>Data:
           <?php
-              $d=strtotime("next Saturday");
-              echo date("Y-m-d h:i:sa", $d) . "<br>";
+              // $d=strtotime("next Saturday");
+              // echo date("Y-m-d h:i:sa", $d) . "<br>";
           ?>
-        </h5><br>
-        <p>Local: Kilamba - Prédio U47 - Apt.41</p>
-          Confirma sua presença no formulário abaixo: </h5><br><br>
-          <form action="" style="border-radius:10%; border:1px;" class="">
-          <label for="nome">
-            <input type="text" placeholder="Coloque aqui seu nome feio" class="form-control">
-          </label><br>
-          <label for="button">
-            <input type="button" class="btn form-control"  id="bt" value="Confirmar minha Presença">
-          </label>
+        </p><br> -->
+          <form action="" style="border-radius:10%; border:1px;" class="" method="post">
+            <input type="text" placeholder="Coloque aqui seu nome feio" class="form-control" style="width:100%" name="name"><br>
+            <input type="submit" class="btn form-control"  id="bt" value="Confirmar minha Presença" name="confirm">
         </form>
       </div>
       <div class="col text-center">
